@@ -83,7 +83,7 @@ async def command_gettra(message: types.Message):
 # линк на гитхаб
 @dp.message_handler(commands=["source"])
 async def command_source(message: types.Message):
-    message.reply(escape("Этот бот на гитхабе: https://github.com/miraneko/IUBot"))
+    await message.reply(escape("Этот бот на гитхабе: https://github.com/miraneko/IUBot"))
 
 
 # при старте бота в лс чтоб сразу регало
