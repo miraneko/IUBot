@@ -80,6 +80,12 @@ async def command_gettra(message: types.Message):
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
 
+# линк на гитхаб
+@dp.message_handler(commands=["source"])
+async def command_source(message: types.Message):
+    message.reply(escape("Этот бот на гитхабе: https://github.com/miraneko/IUBot"))
+
+
 # при старте бота в лс чтоб сразу регало
 @dp.message_handler(commands=["start"])
 async def command_start(message: types.Message):
