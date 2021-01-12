@@ -1,17 +1,34 @@
+#########################################
+# телеграм бот Интернационального Союза #
+#                                       #
+# db.py — файл для всего, что касается  #
+#         доступа к базе данных         #
+#########################################
+
+# было бы неплохо ещё структуру бд
+# и sql запрос для её создания тут написать,
+# но мне лень
+
+# импорты ¯\_(ツ)_/¯
 from datetime import datetime
 from os import environ
 import pymysql
 import logging
 
+
+# настройка логера
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
+# добавление хэндлера на уровне дебаг для вывода в файл
 handler = logging.FileHandler("debug.log")
 handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(levelname)s: %(message)s\n")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+
+# получить инфу о юзвере
 def getUser(db, id=None, tg_id=None, tg_username=None, tg_name=None):
     cursor = db.cursor()
     sql  = "SELECT * FROM users "
@@ -28,6 +45,8 @@ def getUser(db, id=None, tg_id=None, tg_username=None, tg_name=None):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# посмотреть баланс
 def getBalance(db, id=None, tg_id=None, tg_username=None, tg_name=None):
     if id == None:
         user = getUser(db, tg_id=tg_id, tg_username=tg_username, tg_name=tg_name)
@@ -45,6 +64,8 @@ def getBalance(db, id=None, tg_id=None, tg_username=None, tg_name=None):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# добавить нового юзверя
 def addUser(db, message):
     if getUser(db, tg_id=message.from_user.id):
         return 1
@@ -59,6 +80,8 @@ def addUser(db, message):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# обновить инфу о юзвере
 def updateUser(db, message):
     cursor = db.cursor()
     sql = "UPDATE users SET tg_username = '" + message.from_user.username + "' WHERE tg_id = " + str(message.from_user.id) + ";"
@@ -77,6 +100,8 @@ def updateUser(db, message):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# зарегать в банковской системе
 def regBalance(db, message):
     user = getUser(db, tg_id=message.from_user.id)
     if user == None:
@@ -94,6 +119,8 @@ def regBalance(db, message):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# дать бабла
 def pay(db, amount, id=None, tg_id=None, tg_username=None, tg_name=None):
     user = getUser(db, id=id, tg_id=tg_id, tg_username=tg_username, tg_name=tg_name)
     if user == None:
@@ -122,6 +149,8 @@ def pay(db, amount, id=None, tg_id=None, tg_username=None, tg_name=None):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# послать бабла
 def send(db, amount, id_from=None, tg_id_from=None, tg_username_from=None, tg_name_from=None, id_to=None, tg_id_to=None, tg_username_to=None, tg_name_to=None):
     user_from = getUser(db, id=id_from, tg_id=tg_id_from, tg_username=tg_username_from, tg_name=tg_name_from)
     user_to = getUser(db, id=id_to, tg_id=tg_id_to, tg_username=tg_username_to, tg_name=tg_name_to)
@@ -168,6 +197,8 @@ def send(db, amount, id_from=None, tg_id_from=None, tg_username_from=None, tg_na
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# сохранение некоторых данных о сообщении для дальнейшего анализа
 def newmsg(db, message):
     if len(message.text.split()) > 100:
         return
@@ -182,4 +213,6 @@ def newmsg(db, message):
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))
 
+
+# подключение к бд
 db = pymysql.connect("localhost", environ["IU_DATABASE_USERNAME"], environ["IU_DATABASE_PASSWORD"], "fremar")
