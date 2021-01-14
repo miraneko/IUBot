@@ -75,7 +75,7 @@ def addUser(db, message):
     sql += "VALUES(" + str(message.from_user.id) + ", '" + message.from_user.username + "', '" + message.from_user.full_name + "');"
     try:
         cursor.execute(sql)
-        db.comft()
+        db.commit()
     except pymysql.MySQLError as e:
         db.rollback()
         logger.error('Got error {!r}, errno is {}'.format(e, e.args[0]))

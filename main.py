@@ -153,7 +153,7 @@ async def command_plots(message: types.Message):
     await message.reply_photo(open("abh.png", "rb"))
     await message.reply_photo(open("words.png", "rb"))
     await message.reply_photo(open("days.png", "rb"))
-    subprocess.run(["rm", "*.png", "messages.csv"]) # ещё 1 костыль…
+    subprocess.run(["rm", "pie.png", "abh.png", "words.png", "days.png", "messages.csv"]) # ещё 1 костыль…
 
 
 # вывести список наших чатов и каналов
@@ -181,7 +181,7 @@ async def command_navigator(message: types.Message):
 async def command_get_balance(message: types.Message):
     val = botdb.getBalance(botdb.db, tg_id=message.from_user.id)
     if val != None:
-        await message.reply(escape("Ваш баланс — {0} МАР.").format(escape(str(val))))
+        await message.reply(escape("Ваш баланс — {0} МАР.".format(str(val))))
     else:
         if botdb.getUser(botdb.db, tg_id=message.from_user.id):
             await message.reply(escape("Вы не зарегистрированы в банковской системе."))
