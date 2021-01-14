@@ -7,7 +7,7 @@
 
 # импорты ¯\_(ツ)_/¯
 from aiogram import Bot, types, Dispatcher, executor
-from os import environ
+from os import environ, remove
 import db as botdb
 import subprocess
 import asyncio
@@ -153,7 +153,8 @@ async def command_plots(message: types.Message):
     await message.reply_photo(open("abh.png", "rb"))
     await message.reply_photo(open("words.png", "rb"))
     await message.reply_photo(open("days.png", "rb"))
-    subprocess.run(["rm", "pie.png", "abh.png", "words.png", "days.png", "messages.csv"]) # ещё 1 костыль…
+    for file in ["pie.png", "abh.png", "words.png", "days.png", "messages.csv"]:
+        remove(file)
 
 
 # вывести список наших чатов и каналов
