@@ -143,6 +143,11 @@ async def command_start(message: types.Message):
             )
         )
     else:
+        await message.reply(
+            escape(
+                from_file("msg/help.md")
+            )
+        )
         if botdb.addUser(botdb.db, message):
             await message.reply(
                 escape(
@@ -320,6 +325,16 @@ async def command_get_balance(message: types.Message):
                     "в боте."
                 )
             )
+
+
+# хелп
+@dp.message_handler(commands=["help"])
+async def command_help(message: types.Message):
+    await message.reply(
+        escape(
+            from_file("msg/help.md")
+        )
+    )
 
 
 # дать бабла
