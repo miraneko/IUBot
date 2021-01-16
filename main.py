@@ -45,6 +45,11 @@ def escape(s):
         )
 
 
+def from_file(filename):
+    with open(filename) as f:
+        return f.read()
+
+
 # настройка логера
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -274,46 +279,13 @@ async def command_plots(message: types.Message):
 
 
 # вывести список наших чатов и каналов
-# и да, кто-нибудь сделайте уже для остальных хуёвин
-# подобные краткие описания, а то онли канцелярия…
-# это как-то странно выглядит
 @dp.message_handler(commands=["navigator"])
 async def command_navigator(message: types.Message):
     await message.reply(
         escape(
-            "**Навигатор Интернационального Союза**\n\n" +
-            "Реестры:\n" +
-            "[🛃 Реестр паспортов]" +
-            "(https://t.me/joinchat/SOfC6DVmtC4ij7Ib)\n" +
-            "[📯 Реестр партий]" +
-            "(https://t.me/joinchat/Uf7B4t6vKxLp29Tp)\n" +
-            "[💌 Реестр семей]" +
-            "(https://t.me/joinchat/Vv0VkCeuxFcKBwBH)\n" +
-            "[📻 Реестр СМИ]" +
-            "(https://t.me/joinchat/SxMqXGomGWWrjRtg)\n\n" +
-            "Документация:\n" +
-            "[📒 Конституция]()\n" +
-            "[📚 Законодательство]" +
-            "(https://t.me/joinchat/S5p-wkBSbO3fG-Nj)\n\n" +
-            "СМИ:\n" +
-            "[🎙 Информационное бюро]" +
-            "(http://t.me/infofmFMR)\n" +
-            "[🗞 Газета \"Пионерская Слава\"]" +
-            "(https://t.me/joinchat/RSVAUQYKchBl-c8m)\n" +
-            "[👍 Dark culture]" +
-            "(https://t.me/iukanalo)\n\n" +
-            "Остальное:\n" +
-            "[🏛 Зал Суда]" +
-            "(https://t.me/joinchat/GXjehJLm-kvo-Uoo)\n" +
-            "[🎖 Награды]" +
-            "(https://t.me/joinchat/Rc0aAuakoP6dq2ou)\n" +
-            "[📔 Библиотека]" +
-            "(http://t.me/libraryVMR)\n" +
-            "[✡️ Банк]" +
-            "(http://t.me/fremar_bot)\n" +
-            "[🗄Канцелярия]" +
-            "(https://t.me/joinchat/TZDi1hWKs3iMI22Q)"
-        )
+            from_file("msg/navigator.md")
+        ),
+        disable_web_page_preview=True
     )
 
 
@@ -513,15 +485,7 @@ async def new_member(message: types.Message):
     await message.answer(
         escape(
             (
-                "Приветствую вас, {0}!\n" +
-                "Здесь вы можете пообщаться " +
-                "с разными интересными людьми, " +
-                "стать частью политической жизни государства, " +
-                "а также просто отдохнуть от проблем.\n" +
-                "Если вы желаете лучше ознакомится " +
-                "с нашим государством — " +
-                "можете посмотреть навигатор, " +
-                "это делается командой /navigator."
+                from_file("msg/new_member.md")
             ).format(
                 message.new_chat_members[0].full_name
             )
