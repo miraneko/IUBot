@@ -163,17 +163,26 @@ async def command_plots(message: types.Message):
 # это как-то странно выглядит
 @dp.message_handler(commands=["navigator"])
 async def command_navigator(message: types.Message):
-    await message.reply(escape(("Навигатор\n\n"
-        + "[🗃 Канцелярия]({0}) — здесь можно получить паспорт\n"
-        + "[🎖 Газета Пионерская Слава]({1})\n"
-        + "[📰 Информационное бюро]({2})\n"
-        + "[🛃 Законодательство]({3})\n"
-        + "[⚔️ Военкомат]({4})").format(
-            "https://t.me/joinchat/SCbFMU2Q4tbKnv2LjCNtkA",
-            "https://t.me/joinchat/AAAAAEUlQFEGCnIQZfnPJg",
-            "https://t.me/joinchat/AAAAAFZyHztGygmQLlOKAw",
-            "https://t.me/joinchat/AAAAAEuafsJAUmzt3xvjYw",
-            "https://t.me/joinchat/SCbFMRy_nbvO3oW2zyXpJQ")
+    await message.reply(escape(
+        "**Навигатор Интернационального Союза**\n\n" +
+        "Реестры:\n" +
+        "[🛃 Реестр паспортов](https://t.me/joinchat/SOfC6DVmtC4ij7Ib)\n" +
+        "[📯 Реестр партий](https://t.me/joinchat/Uf7B4t6vKxLp29Tp)\n" +
+        "[💌 Реестр семей](https://t.me/joinchat/Vv0VkCeuxFcKBwBH)\n" +
+        "[📻 Реестр СМИ](https://t.me/joinchat/SxMqXGomGWWrjRtg)\n\n" +
+        "Документация:\n" +
+        "[📒 Конституция]()\n" +
+        "[📚 Законодательство](https://t.me/joinchat/S5p-wkBSbO3fG-Nj)\n\n" +
+        "СМИ:\n" +
+        "[🎙 Информационное бюро](http://t.me/infofmFMR)\n" +
+        "[🗞 Газета \"Пионерская Слава\"](https://t.me/joinchat/RSVAUQYKchBl-c8m)\n" +
+        "[👍 Dark culture](https://t.me/iukanalo)\n\n" +
+        "Остальное:\n" +
+        "[🏛 Зал Суда](https://t.me/joinchat/GXjehJLm-kvo-Uoo)\n" +
+        "[🎖 Награды](https://t.me/joinchat/Rc0aAuakoP6dq2ou)\n" +
+        "[📔 Библиотека](http://t.me/libraryVMR)\n" +
+        "[✡️ Банк](http://t.me/fremar_bot)\n" +
+        "[🗄Канцелярия](https://t.me/joinchat/TZDi1hWKs3iMI22Q)"
     ))
 
 
