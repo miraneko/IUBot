@@ -21,3 +21,6 @@
 [📔 Библиотека](http://t.me/libraryVMR)
 [✡️ Банк](http://t.me/fremar_bot)
 [🗄 Канцелярия](https://t.me/joinchat/TZDi1hWKs3iMI22Q)
+
+От разработчика:
+[😻 Kathomisis](https://t.me/kathomisis)
