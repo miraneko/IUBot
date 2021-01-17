@@ -504,7 +504,8 @@ async def new_member(message: types.Message):
             ).format(
                 message.new_chat_members[0].full_name
             )
-        )
+        ),
+        disable_web_page_preview=True
     )
 
 
